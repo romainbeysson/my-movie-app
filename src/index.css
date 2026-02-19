@@ -1,0 +1,8 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+:root {
+  --root-bg: #18181b;
+  --page-scroll-bg: var(--root-bg);
+  --color-base-content: #fff;
+}
