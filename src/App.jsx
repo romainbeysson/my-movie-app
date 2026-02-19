@@ -7,6 +7,7 @@ import MovieCard from './components/MovieCard.jsx';
 function App() {
 const [movies, setMovies] = useState([]);
 const [favorites, setFavorites] = useState([]);
+const [initialized, setInitialized] = useState(false);
 const [searchTerm, setSearchTerm] = useState('');
 const [page, setPage] = useState(1);
 const [totalPages, setTotalPages] = useState(1);
@@ -16,6 +17,25 @@ const [selectedMovie, setSelectedMovie] = useState(null);
 const [view, setView] = useState('search'); // 'home', 'favorites', 'details'
 
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
+
+
+useEffect(() => {
+  const storedFavorites = JSON.parse(localStorage.getItem
+  ("favorites")) || [];
+  setFavorites(storedFavorites);
+  setInitialized(true);
+}, []); // Empty dependency array to run only once on mount
+
+
+useEffect(() => {
+
+  if (initialized) {
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+  }
+}, 
+
+[favorites, initialized]);
+
 
 useEffect(() => {
   if (view === "favorites") {
